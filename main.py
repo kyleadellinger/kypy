@@ -10,6 +10,10 @@ def prog_entry():
 
     subcommands = parser.add_subparsers(help="subcommand help", dest="subcommand")
 
+    passer = subcommands.add_parser("kpass", help="Prompt/obtain secrets")
+    passer.add_argument("-p", "--prompt", help="Override default prompt", default="Secret: ")
+    passer.add_argument("-n", "--no-newline", help="Don't include a newline character with provided secret. May not actually be necessary anyway", action="store_true", default=False)
+
     asocks = subcommands.add_parser("asock", help="Async sockets things")
     asocks.add_argument("subc", choices=("serve", "client"))
     asocks.add_argument("-p", "--port", help="Listen port on 'serve'; Target port on 'client'", type=int, default=8888)
@@ -32,6 +36,8 @@ def prog_entry():
                     aserv.main(handler=aserv.handle_echo, ipaddr=args.ip, port=args.port)
                 except KeyboardInterrupt:
                     return
+        case "passer":
+
 
         case _:
             parser.print_usage()
