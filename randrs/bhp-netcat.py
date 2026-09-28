@@ -26,7 +26,7 @@ class NetCat:
         if self.args.listen:
             self.listen()
         else:
-            send.send()
+            self.send()
 
     def send(self):
         self.socket.connect((self.args.target, self.args.port))
@@ -99,5 +99,3 @@ class NetCat:
                 finally:
                     self.socket.close()
                     return 1
-
-
